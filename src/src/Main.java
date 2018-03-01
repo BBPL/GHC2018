@@ -8,8 +8,8 @@ import java.util.Scanner;
 
 public class Main {
     public int GlobalTime;
-    public static ArrayList<Trip> trips;
-    public static ArrayList<Car> cars;
+    private static ArrayList<Trip> trips;
+    private static ArrayList<Car> cars;
     public static void main(String[] args) throws FileNotFoundException {
 
         trips = new ArrayList<Trip>();
@@ -24,6 +24,7 @@ public class Main {
         int rides = scanner.nextInt();
         int bonus = scanner.nextInt();
         int time = scanner.nextInt();
+        if(numRows < 1 || numCols < 1 || vehicles < 1 || rides < 1 || bonus < 1 || time < 1) System.exit(0);
         scanner.nextLine();
         while(scanner.hasNextLine()){
             int startx = scanner.nextInt();
@@ -40,6 +41,10 @@ public class Main {
         for(int i = 0; i < vehicles; i++){
             cars.add(new Car());
         }
+
+
+
+
 
     }
 }
