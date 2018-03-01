@@ -1,3 +1,5 @@
+package src;
+
 public class Tuple {
     int x;
     int y;
