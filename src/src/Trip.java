@@ -1,5 +1,3 @@
-package src;
-
 public class Trip {
     public Tuple start;
     public Tuple end;
