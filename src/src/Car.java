@@ -16,6 +16,10 @@ public class Car {
         _trips = new ArrayList<Trip>();
     }
 
+    public ArrayList<Trip> makeTrips(ArrayList<Trip> trips){
+        return null;
+    }
+
     @Override
     public String toString() {
         return _trips.size() + "" +_trips.toString();

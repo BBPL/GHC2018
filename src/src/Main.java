@@ -41,5 +41,8 @@ public class Main {
             cars.add(new Car(i));
         }
 
+        for(Car c : cars){
+            trips = c.makeTrips(trips);
+        }
     }
 }
