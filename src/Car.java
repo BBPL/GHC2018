@@ -30,18 +30,36 @@ public class Car {
         return trips;
     }
 
+    public ArrayList<Trip> makeTrip(ArrayList<Trip> trips){
+        Trip t = CalculateBestTrip(trips);
+        if(t == null)
+            return trips;
+        if(!canMakeCutoff(t))
+            return trips;
+        updateCar(t);
+        trips.remove(t);
+
+        return trips;
+    }
+
     private void updateCar(Trip t) {
         time += calculateDistance(pos,t.start)+ calculateDistance(t.start, t.end);
         pos = t.end;
+        _trips.add(t);
     }
 
     private Trip CalculateBestTrip(ArrayList<Trip> trips){
         if(trips.size() <= 0)
             return null;
-        Trip best = trips.get(0);
+        int bestTime = Integer.MAX_VALUE;
+        Trip best = null;
         for(Trip t : trips){
             if(canMakeCutoff(t))
-                best = CompareTrips(best, t);
+                if(canMakeTrip(t))
+                    if(best == null)
+                        best = t;
+                    else best = CompareTrips(best, t);
+                continue;
         }
         return best;
     }
@@ -50,6 +68,11 @@ public class Car {
         if((calculateDistance(pos,t.start)+ calculateDistance(t.start, t.end) + time) < cutoff)
             return true;
         return false;
+    }
+
+    private boolean canMakeTrip(Trip t){
+        int expectedEndTime = calculateDistance(pos,t.start)+ calculateDistance(t.start, t.end) + time;
+        return t.endTime > expectedEndTime;
     }
 
     private Trip CompareTrips(Trip t1, Trip t2){

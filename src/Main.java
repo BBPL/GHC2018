@@ -42,11 +42,12 @@ public class Main {
         for(int j = 0; j < vehicles; j++){
             cars.add(new Car(j, GlobalTime));
         }
-
-        for(Car c : cars){
-            if(trips.size() == 0)
-                break;
-            trips = c.makeTrips(trips);
+        while(!trips.isEmpty()){
+            for(Car c : cars){
+                if(trips.size() == 0)
+                    break;
+                trips = c.makeTrip(trips);
+            }
         }
         PrintWriter writer = new PrintWriter("output.out", "UTF-8");
         for(Car c : cars){
