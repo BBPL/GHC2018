@@ -38,7 +38,7 @@ public class Main {
         }
 
         for(int i = 0; i < vehicles; i++){
-            cars.add(new Car());
+            cars.add(new Car(i));
         }
 
     }
