@@ -33,7 +33,7 @@ public class Main {
             int earliestStart = scanner.nextInt();
             int latestEnd = scanner.nextInt();
             Tuple s = new Tuple(startx,starty);
-            Tuple e = new Tuple(startx,starty);
+            Tuple e = new Tuple(endx,endy);
             trips.add(new Trip(s, e, earliestStart, latestEnd, i));
             i++;
             scanner.nextLine();
@@ -42,12 +42,19 @@ public class Main {
         for(int j = 0; j < vehicles; j++){
             cars.add(new Car(j, GlobalTime));
         }
+        int lastsize = trips.size();
+        boolean ended = false;
         while(!trips.isEmpty()){
+            lastsize = trips.size();
             for(Car c : cars){
                 if(trips.size() == 0)
                     break;
-                trips = c.makeTrip(trips);
+                trips = c.makeTrip(trips, ended);
+                System.out.println(trips.size() + " " + ended);
+                System.out.println("");
             }
+            if(lastsize == trips.size())
+                ended = true;
         }
         PrintWriter writer = new PrintWriter("output.out", "UTF-8");
         for(Car c : cars){

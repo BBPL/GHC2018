@@ -7,6 +7,7 @@ public class Car {
     private int time;
     private int id;
     private int cutoff;
+    private int lastTripsSize;
 
     public Car(int id, int time){
         this.cutoff = time;
@@ -30,7 +31,12 @@ public class Car {
         return trips;
     }
 
-    public ArrayList<Trip> makeTrip(ArrayList<Trip> trips){
+    public ArrayList<Trip> makeTrip(ArrayList<Trip> trips, boolean ended){
+        if(ended){
+            updateCar(trips.get(0));
+            trips.remove(trips.get(0));
+            return trips;
+        }
         Trip t = CalculateBestTrip(trips);
         if(t == null)
             return trips;
@@ -59,6 +65,7 @@ public class Car {
                     if(best == null)
                         best = t;
                     else best = CompareTrips(best, t);
+
                 continue;
         }
         return best;
@@ -76,11 +83,21 @@ public class Car {
     }
 
     private Trip CompareTrips(Trip t1, Trip t2){
+        if(hitOnBonus(t1))
+            return t2;
+        if(hitOnBonus(t2))
+            return t2;
         int distT1 = calculateDistance(pos,t1.start);
         int distT2 = calculateDistance(pos, t2.start);
         if(distT1 > distT2)
             return t1;
         return t2;
+    }
+
+    private boolean hitOnBonus(Trip t) {
+        if((t.startTime <= time + calculateDistance(pos,t.start) && (time + calculateDistance(pos,t.start) <= t.startTime + 10)))
+            return true;
+        return false;
     }
 
     private int calculateDistance(Tuple start, Tuple end){
