@@ -1,4 +1,3 @@
-import src.Tuple;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -40,7 +39,6 @@ public class Main {
         for(int i = 0; i < vehicles; i++){
             cars.add(new Car());
         }
-
 
 
 
